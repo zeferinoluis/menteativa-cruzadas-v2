@@ -1,6 +1,6 @@
 {
-  "name": "Palavras Cruzadas — Mente Ativa",
-  "short_name": "Mente Ativa",
+  "name": "Palavras Cruzadas — Mente Ativa V2",
+  "short_name": "Mente Ativa V2",
   "description": "Desafios eruditos e avançados de palavras cruzadas em português de Portugal para manter a mente ativa.",
   "start_url": "./index.html",
   "scope": "./",
@@ -38,5 +38,5 @@
       "purpose": "maskable"
     }
   ],
-  "id": "com.github.zeferinoluis.menteativacruzadas"
+  "id": "com.github.zeferinoluis.menteativacruzadas.v2"
 }
