@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Palavras Cruzadas — Mente Ativa</title>
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#C2702C">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Cruzadas Mente Ativa">
+<link class="apple-touch-icon" href="icon-192.png">
+
+<!-- CSS Externo -->
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="textura-fundo"></div>
+
+<!-- Loading Overlay -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-spinner"></div>
+  <p>A carregar dicionario de palavras...</p>
+</div>
+
+<header class="app-header">
+  <div class="marca" id="botaoMarca">
+    <div class="marca-selo">🧠</div>
+    <div class="marca-texto">
+      <h1 class="f-display">Mente Ativa</h1>
+      <p>Desafios de Alto Nivel Cognitivo</p>
+    </div>
+  </div>
+  <div class="header-acoes">
+    <button class="btn btn-fantasma" id="btnGuardarTopo">💾 Guardar</button>
+    <button class="btn btn-fantasma" id="btnLimparTopo">🗑️ Limpar dados</button>
+  </div>
+</header>
+
+<main class="ecra activo" id="ecraInicio">
+  <div class="bemvindo">
+    <h2 class="f-display">Puzzles de Palavras Cruzadas Eruditas</h2>
+    <p>Selecione um tema. O motor reconstroi a grelha dinamicamente com base num dicionario avancado sem interrupcoes de fluxo.</p>
+  </div>
+  <div class="grid-temas" id="gridTemas"></div>
+</main>
+
+<section class="ecra" id="ecraCruzadas">
+  <div class="barra-jogo">
+    <div class="titulo-modulo">
+      <div id="seloTemaActivo" style="width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:20px; background:var(--ambar); color:white;">✏️</div>
+      <div>
+        <h2 class="f-display" id="cruzadasTitulo">Palavras Cruzadas</h2>
+        <p class="sub" id="cruzadasSubtitulo">A carregar...</p>
+      </div>
+    </div>
+    <div class="barra-jogo-acoes">
+      <select class="btn" id="selectNivelCruzadas">
+        <option value="facil">Facil</option>
+        <option value="medio">Medio</option>
+        <option value="dificil" selected>Dificil / Erudito</option>
+      </select>
+      <button class="btn" id="btnNovoCruzadas">🔀 Novo</button>
+      <button class="btn" id="btnVerificarCruzadas">✔️ Verificar</button>
+      <button class="btn btn-fantasma" id="btnRevelarCruzadas">👁️ Revelar</button>
+      <button class="btn btn-fantasma" id="btnVoltarCruzadas">← Voltar</button>
+    </div>
+  </div>
+  <div id="areaCruzadas"></div>
+</section>
+
+<div id="toast" role="status"></div>
+
+<!-- Modais -->
+<div class="modal-fundo" id="modalLimpar">
+  <div class="modal">
+    <h3 class="f-display">Apagar o progresso local?</h3>
+    <p>Isto ira limpar permanentemente as suas estatisticas guardadas.</p>
+    <div class="modal-acoes">
+      <button class="btn" id="btnCancelarLimpar">Cancelar</button>
+      <button class="btn btn-perigo" id="btnConfirmarLimpar">Apagar tudo</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-fundo" id="modalConfirmar">
+  <div class="modal">
+    <h3 class="f-display">Mudar de Puzzle?</h3>
+    <p id="textoConfirmar">O progresso da grelha atual sera substituido.</p>
+    <div class="modal-acoes">
+      <button class="btn" id="btnConfirmarNao">Cancelar</button>
+      <button class="btn btn-primario" id="btnConfirmarSim">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-fundo" id="modalRevelar">
+  <div class="modal">
+    <h3 class="f-display">Mostrar solucoes?</h3>
+    <p>A grelha sera totalmente revelada e o progresso atual sera encerrado.</p>
+    <div class="modal-acoes">
+      <button class="btn" id="btnCancelarRevelar">Cancelar</button>
+      <button class="btn btn-perigo" id="btnConfirmarRevelar">Revelar tudo</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-fundo" id="modalConclusao">
+  <div class="modal">
+    <div style="font-size:40px; margin-bottom:10px;">🏆</div>
+    <h3 class="f-display">Grelha Concluida!</h3>
+    <p id="textoConclusao">Parabens, resolveu todas as interseccoes eruditas.</p>
+    <div class="modal-acoes modal-acoes-col">
+      <button class="btn btn-primario" id="btnConclusaoNovo">🔁 Gerar novo puzzle neste tema</button>
+      <button class="btn" id="btnConclusaoMenu">🎲 Voltar a selecao de temas</button>
+    </div>
+  </div>
+</div>
+
+<!-- JavaScript Modulos -->
+<script src="js/config.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/generator.js"></script>
+<script src="js/app.js"></script>
+
+<!-- Service Worker -->
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('./sw.js')
+      .then(function(reg) { console.log('Service Worker registado:', reg.scope); })
+      .catch(function(err) { console.error('Falha SW:', err); });
+  });
+}
+</script>
+</body>
+</html>
