@@ -9,8 +9,8 @@ CruzadasApp.CX_TEMAS = [
   { id: 'viagens',   nome: 'Viagens e Lugares',   icone: '\u2708\uFE0F', cor: 'linear-gradient(155deg, #9A8A5C, #756842)' }
 ];
 
-CruzadasApp.CHAVE_ESTADO = 'cruzadas_pwa_estado_v2';
-CruzadasApp.CHAVE_ESTATISTICAS = 'cruzadas_pwa_estatisticas_v1';
+CruzadasApp.CHAVE_ESTADO = 'mv2_cruzadas_pwa_estado';
+CruzadasApp.CHAVE_ESTATISTICAS = 'mv2_cruzadas_pwa_estatisticas';
 
 CruzadasApp.RE_IMPLANTE = /^(IPX |IPXC |ICI |ICIC )/;
 CruzadasApp.RE_PILAR    = /^(MUSR |MUSLAR |MUSA |MUSLA |MUST |MUSTE |EMU |PA |PR |PGZA |PCERC |PEA |PCS |PCCS |PCIR |PCIA |PKO |PKB |PCERCM|KMUST |KMU |KEMU |MU )/;
