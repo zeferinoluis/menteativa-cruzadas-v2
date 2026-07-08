@@ -1,5 +1,5 @@
 // sw.js — Service Worker com cache dos assets principais
-var CACHE_NAME = 'menteativa-cruzadas-v2-cache-01';
+var CACHE_NAME = 'menteativa-cruzadas-v2-cache-02';
 var ASSETS = [
   './',
   './index.html',
