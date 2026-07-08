@@ -135,7 +135,7 @@ button, select, input{ font-family: inherit; }
 .titulo-modulo .sub { margin:2px 0 0; font-size:13px; color:var(--tinta-suave); }
 
 .cx-layout{ display:flex; gap:28px; align-items:flex-start; width: 100%; }
-.cx-tabuleiro-wrap{ flex: 1 1 auto; width: 100%; overflow: auto; overscroll-behavior: contain; background: var(--tinta); padding: 8px; border-radius: 12px; box-shadow: 0 4px 20px var(--sombra-forte); }
+.cx-tabuleiro-wrap{ flex: 1 1 auto; width: 100%; overflow: auto; overscroll-behavior-x: contain; overscroll-behavior-y: auto; -webkit-overflow-scrolling: touch; background: var(--tinta); padding: 8px; border-radius: 12px; box-shadow: 0 4px 20px var(--sombra-forte); }
 .cx-tabuleiro{ position:relative; display:block; background: var(--tinta); margin: 0 auto; }
 
 .cx-grelha{ display:grid; gap:1px; background: var(--tinta); touch-action: manipulation; margin: 0 auto; width: max-content; max-width: 100%; }
